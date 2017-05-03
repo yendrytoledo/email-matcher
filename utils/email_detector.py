@@ -3,7 +3,7 @@ import re
 
 class EmailDetector:
     def __init__(self, raw_html):
-        print("Parsing strings...")
+        print("\t Parsing strings...")
         self.raw_html = self.format_html(raw_html)
 
     @staticmethod
@@ -11,7 +11,7 @@ class EmailDetector:
         return string.replace(" ", "").replace("\n", "").replace(">", ">\n")
 
     def parse_possible_emails(self):
-        print "Getting email matches..."
+        print "\t Getting email matches..."
         matches = re.findall(r'[\w.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+', self.raw_html)
         return self.eliminate_duplicates(matches)
 

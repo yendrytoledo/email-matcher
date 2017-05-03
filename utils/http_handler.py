@@ -15,5 +15,8 @@ class HttpHandler():
         # TODO: Caching logic
         # TODO: Retrying logic
 
-        print("Downloading website info...")
-        return requests.get(self.url).text
+        print("\t Downloading website info...")
+        try:
+            return requests.get(self.url).text
+        except Exception:
+            return ""
