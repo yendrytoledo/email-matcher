@@ -8,7 +8,7 @@ class EmailDetector:
 
     @staticmethod
     def format_html(string):
-        return string.replace(" ", "").replace("\n", "").replace(">", ">\n")
+        return string.replace("\n", "").replace(">", ">\n")
 
     def parse_possible_emails(self):
         print "\t Getting email matches..."

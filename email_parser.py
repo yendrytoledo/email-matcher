@@ -18,10 +18,13 @@ website_crawler.feed(html_response)
 for website in website_crawler.get_websites():
     # TODO: Implement multithreading
     http_handler = HttpHandler(website)
+    if not http_handler.did_website_load_correctly():
+        continue
     html_response = http_handler.raw_response
     email_detector = EmailDetector(html_response)
-    emails.update(email_detector.parse_possible_emails())
-
+    possible_emails = email_detector.parse_possible_emails()
+    print "Found these emails", possible_emails
+    emails.update(possible_emails)
 
 print "\nEmails found in domain:", website_url
 for string in emails:

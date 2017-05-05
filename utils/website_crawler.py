@@ -14,12 +14,22 @@ class WebsiteCrawler(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         if tag == "a":
-            for name, value in attrs:
-                if name == "href":
-                    if self.website_url not in value:
-                        continue
-                    value = self.normalize_url(value)
-                    self.website_set.add(value)
+            self.handle_possible_links(attrs)
+
+    def handle_possible_links(self, attrs):
+        for name, value in attrs:
+            if name == "href":
+                self.parse_link(value)
+
+    def parse_link(self, value):
+        value = self.normalize_url(value)
+        if self.website_url in self.get_base_url(value):
+            self.website_set.add(value)
+
+    @staticmethod
+    def get_base_url(raw_url):
+        split_url = raw_url.split("/")
+        return split_url[0]
 
     def normalize_url(self, value):
         value = str(value)
